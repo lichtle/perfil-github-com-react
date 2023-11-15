@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
+  margin: 64px 0;
 }
 
 .listItem {
@@ -26,4 +27,8 @@
   margin-top: 8px;
   padding: 8px;
   text-decoration: none;
+}
+
+.loading {
+  margin-top: 32px;
 }

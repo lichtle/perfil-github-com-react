@@ -1,10 +1,9 @@
 .header {
   background-color: var(--corPrincipal);
-  padding: 180px 0 40px;
+  padding: 100px 0 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 80px;
 }
 
 .avatar {
@@ -15,6 +14,7 @@
 }
 
 .name {
-  font-size: 18px;
+  font-size: 24px;
+  margin-top: 16px;
   color: var(--corSecundaria);
 }
