@@ -29,6 +29,11 @@
   text-decoration: none;
 }
 
-.loading {
+.loading,
+.notFound {
   margin-top: 32px;
+}
+
+.notFound {
+  text-align: center;
 }

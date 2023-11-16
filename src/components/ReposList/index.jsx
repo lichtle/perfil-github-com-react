@@ -5,29 +5,38 @@ import styles from "./ReposList.module.css";
 const ReposList = ({ nomeUsuario }) => {
   const [repos, setRepos] = useState([]);
   const [estaCarregando, setEstaCarregando] = useState(false);
+  const [usuarioEncontrado, setUsuarioEncontrado] = useState(false);
 
   useEffect(() => {
-    async function getUser() {
-      setEstaCarregando(true);
-      const requisicao = await fetch(
-        `https://api.github.com/users/${nomeUsuario}/repos`
-      );
-      const respostaEmJson = await requisicao.json();
+    try {
+      async function getUser() {
+        setEstaCarregando(true);
+        const requisicao = await fetch(
+          `https://api.github.com/users/${nomeUsuario}/repos`
+        );
+        const respostaEmJson = await requisicao.json();
 
-      respostaEmJson.message === "Not Found"
-        ? alert("Usuário não encontrado! :(")
-        : setEstaCarregando(false);
-
-      setRepos(respostaEmJson);
+        if (respostaEmJson.message) {
+          setUsuarioEncontrado(false);
+          setEstaCarregando(false);
+        } else {
+          setUsuarioEncontrado(true);
+          setEstaCarregando(false);
+          setRepos(respostaEmJson);
+        }
+      }
+      getUser();
+    } catch (error) {
+      console.log(error);
     }
-
-    getUser();
   }, [nomeUsuario]); // Podemos adicionar a prop "nomeUsuario" dentro deste array vazio para informar o useEffect que ele deve executar a função de fetch getUser toda vez que houver alguma mudança na prop nomeUsuario
 
   return (
     <div className="container">
       {estaCarregando ? (
         <h1 className={styles.loading}>Carregando repositórios...</h1>
+      ) : usuarioEncontrado === false ? (
+        <h1 className={styles.notFound}>O usuário buscado não existe.</h1>
       ) : (
         <ul className={styles.list}>
           {repos.map(
